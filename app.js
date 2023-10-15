@@ -24,7 +24,7 @@ app.get("/images/:name", (req, res) => {
     res.status(200).sendFile(`${__dirname}/public/images/${req.params.name}`)
 })
 app.use("/auth",require("./src/pipe/auth"))
-app.use("/chat",require("./src/pipe/chat"))
+
 
 //Socket Registry
 const io = new Server(httpServer, {

@@ -1,15 +1,16 @@
-const { Sequelize, QueryTypes } = require('sequelize')
-
-const {Chat } = require("../db/schema/chat_schema")
-const { User} = require("../db/schema/user_schema")
-const UserDao = require('./crud_ops/user_crud');
-const { chatSchemaInitialiser } = require('./schema/chat_schema');
-const { messageSchemaInitialiser } = require('./schema/message_Schema');
+const { Sequelize} = require('sequelize')
 const {userSchemaInitialiser} = require("./schema/user_schema")
 const {chatQueryInitialiser} = require("../db/Queries/chatQueries")
-const sequelize = new Sequelize('user_bank','devraushan','Raushan2206@',{
+
+const DB_PASS = process.env.DB_PASS
+const DB_HOST = process.env.DB_HOST
+const DB_NAME = process.env.DB_NAME
+const DB_USERNAME = process.env.DB_USERNAME
+
+
+const sequelize = new Sequelize(DB_NAME,DB_USERNAME,DB_PASS,{
     dialect: 'mysql',
-    host:"localhost"
+    host:DB_HOST
 })  
 
 const dbconnect = async ()=>{
@@ -18,17 +19,5 @@ const dbconnect = async ()=>{
     chatSchemaInitialiser(sequelize)
     messageSchemaInitialiser(sequelize)
     chatQueryInitialiser(sequelize)
-
-    // const temptable = await sequelize.query("SELECT Users.fName,Users.lName,Users.userName,Users.profilePic, Chats.member1,Chats.member2,Chats.id FROM Chats INNER JOIN Users ON Chats.member1 = Users.id;",{ type:QueryTypes.SELECT })
-    // console.log(temptable)
 }
 module.exports= dbconnect
-// UserDao.create({
-//     fName:"Ross",
-//     lName:"rock",
-//     userName:"rockrock", 
-//     email: "someone@rock.com",
-//     phNo:3453642345,
-//     country:"IN",
-//     hashPass:"jfidskjfwdepojfeovijefupewdjpofie"
-// }).then(data=>console.log(data)).catch(err=>console.log(err))

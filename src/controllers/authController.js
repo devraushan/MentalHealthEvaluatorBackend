@@ -10,16 +10,13 @@ const authController = {
 }
 
 async function signUp(req, res) {
-    console.log(req.file)
     try {
-
         const user = {}
         user.fName = req.body.fName
         user.lName = req.body.lName
         user.userName = req.body.userName
         user.email = req.body.email
         user.phNo = req.body.phNo
-        user.country = req.body.country
         user.hashPass = await pass.hash(req.body.password)
         user.profilePic = req.file ? req.file.buffer : null
         const acknowledgement = await UserDao.create(user)
@@ -27,7 +24,7 @@ async function signUp(req, res) {
         res.send({ authToken })
     } catch (error) {
         console.log(error)
-        res.status(500).send("something went wrong")
+        res.status(500).send({error:"something went wrong"})
     }
 
 }
@@ -101,7 +98,6 @@ async function updateUser(req, res) {
             updatedUser.lName = updatedCredential.lName ? updatedCredential.lName : user.lName
             updatedUser.profilePic = profilePic ? profilePic.buffer : user.profilePic
             updatedUser.email = updatedCredential.email ? updatedCredential.email : user.email
-            updatedUser.country = updatedCredential.country ? updatedCredential.country : user.country
             updatedUser.phNo = updatedCredential.phNo ? updatedCredential.phNo : user.phNo
             updatedUser.hashPass = updatedCredential.hashPass ? updatedCredential.hashPass : user.hashPass
             updatedUser.userName = updatedCredential.userName ? updatedCredential.userName : user.userName

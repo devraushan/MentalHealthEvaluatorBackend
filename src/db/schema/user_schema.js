@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 class User extends Model { }
 
-const userSchemaInitialiser = (sequelize)=>{
+const userSchemaInitialiser = (sequelize) => {
 
     User.init({
         id: {
@@ -32,9 +32,6 @@ const userSchemaInitialiser = (sequelize)=>{
             allowNull: false,
             unique: true
         },
-        country: {
-            type: DataTypes.STRING
-        },
         hashPass: {
             type: DataTypes.STRING,
             allowNull: false
@@ -42,6 +39,6 @@ const userSchemaInitialiser = (sequelize)=>{
     }, { sequelize })
     User.sync()
 
-}    
-module.exports={userSchemaInitialiser,User}
+}
+module.exports = { userSchemaInitialiser, User }
 

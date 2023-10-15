@@ -32,7 +32,6 @@ function updateUser(user, updatee) {
         userName: user.userName,
         email: user.email,
         phNo: user.phNo,
-        country: user.country,
         hashPass: user.hashPass,
         profilePic: user.profilePic
     }
